@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const MONGODB_URL = process.env.MONGODB_URL!;
 
+
 if (!MONGODB_URL) {
   throw new Error(
     "Please define the MONGODB_URL environment variable inside .env.local"
@@ -21,7 +22,7 @@ export async function connectToDatabase() {
   if (!cached.promise) {
     const opts = {
       bufferCommands: true,
-      maxPoolSize: 5,
+      maxPoolSize: 10,
     };
 
     cached.promise = mongoose
