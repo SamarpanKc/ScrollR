@@ -3,7 +3,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { connectToDatabase } from "./db";
 import User from "@/models/user";
-import { use } from "react";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -60,7 +59,13 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
+  pages:{
+    signIn: "/login",
+    error: "/login",
+  },
   session: {
     strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60,
   },
+  secret: process.env.NEXTAUTH_SECRET
 };
