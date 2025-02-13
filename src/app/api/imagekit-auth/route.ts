@@ -1,4 +1,4 @@
-import ImageKit from "imagekit"
+import ImageKit from "imagekit";
 import { NextResponse } from "next/server";
 
 const imagekit = new ImageKit({
@@ -8,16 +8,16 @@ const imagekit = new ImageKit({
 });
 
 export async function GET() {
-
-    try {
-        
-    } catch (error) {
-        return NextResponse.json(
-            {error: "Image auth Failed"},
-            {status: 500}
-            //13:50 of video
-        )
-    }
+  try {
+    const authParam = imagekit.getAuthenticationParameters();
+    return NextResponse.json(authParam);
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Image auth Failed" },
+      { status: 500 }
+      //13:50 of video
+    );
+  }
 
   return NextResponse.json(imagekit.getAuthenticationParameters());
 }
