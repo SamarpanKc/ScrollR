@@ -15,7 +15,6 @@ export async function GET() {
     return NextResponse.json(
       { error: "Image auth Failed" },
       { status: 500 }
-      //13:50 of video
     );
   }
 
