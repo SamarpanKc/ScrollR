@@ -27,7 +27,7 @@ export default function Header() {
             className="btn btn-ghost text-lg md:text-xl gap-2 normal-case font-bold "
             prefetch={true}
             onClick={() =>
-              showNotification("Welcome to Scroll Reels", "info")
+              showNotification("Welcome to Scroll Reels", "success")
             }
           >
             <Home className="w-5 h-5" />
@@ -62,7 +62,7 @@ export default function Header() {
                         href="/upload"
                         className="px-4 py-2 hover:bg-base-200 block w-full"
                         onClick={() =>
-                          showNotification("Welcome to Admin Dashboard", "info")
+                          showNotification("Welcome to Admin Dashboard", "success")
                         }
                       >
                         Upload Video
@@ -84,7 +84,7 @@ export default function Header() {
                       href="/login"
                       className="px-4 py-2 hover:bg-base-200 block w-full"
                       onClick={() =>
-                        showNotification("Please sign in to continue", "info")
+                        showNotification("Please sign in to continue", "success")
                       }
                     >
                       Login
