@@ -18,13 +18,12 @@ export default function FileUpload({
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const ikUploadRef = useRef<typeof IKUpload>(null); // Correctly type the ref
-
+  const ikUploadRef = useRef<HTMLInputElement>(null);
 
   const onError = (err: { message: string }) => {
     setUploading(false);
-    setError(err.message); // Display the error message
-    console.error("Upload Error:", err); // Log the error for debugging
+    setError(err.message);
+    console.error("Upload Error:", err);
   };
 
   const handleSuccess = (res: IKUploadResponse) => {
@@ -35,11 +34,9 @@ export default function FileUpload({
   };
 
   const handleProgress = (progress: number) => {
-    // Correctly type the progress argument
     setUploading(true);
     setError(null);
     if (onProgress) {
-      // Call the provided progress callback
       onProgress(progress);
     }
   };
@@ -47,12 +44,10 @@ export default function FileUpload({
   const validateFile = (file: File): boolean => {
     if (filetype === "video") {
       if (file.type.startsWith("video/") === false) {
-        // Improved video type check
         setError("Invalid file type. Please upload a video file");
         return false;
       }
       if (file.size > 100000000) {
-        // 100MB
         setError("File size exceeds the limit of 100MB");
         return false;
       }
@@ -65,12 +60,11 @@ export default function FileUpload({
         return false;
       }
       if (file.size > 5000000) {
-        // 5MB
         setError("File size exceeds the limit of 5MB");
         return false;
       }
     }
-    return true; // Return true if validation passes
+    return true;
   };
 
   return (
@@ -81,29 +75,19 @@ export default function FileUpload({
         validateFile={validateFile}
         onError={onError}
         onSuccess={handleSuccess}
-        onUploadProgress={handleProgress}
-        transformation={{
-          pre: "l-text,i-Imagekit,fs-50,l-end",
-          post: [
-            {
-              type: "transformation",
-              value: "w-100",
-            },
-          ],
-        }}
+        onUploadProgress={(evt) =>
+          handleProgress((evt.loaded / evt.total) * 100)
+        }
         style={{ display: "none" }}
         ref={ikUploadRef}
       />
-      <p>Custom Upload Button</p>
-      <button onClick={() => ikUploadRef.current?.click()}>Upload</button>{" "}
-      {/* Optional chaining */}
-      <p>Abort upload request</p>
-      <button onClick={() => ikUploadRef.current?.abort()}>
-        Abort request
-      </button>{" "}
-      {/* Optional chaining */}
-      {error && <p className="text-red-500">{error}</p>}{" "}
-      {/* Display error message */}
+      <button
+        onClick={() => ikUploadRef.current?.click()}
+        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+      >
+        Upload
+      </button>
+      {error && <p className="text-red-500">{error}</p>}
       {uploading && (
         <div className="flex items-center gap-2 text-sm text-primary">
           <Loader2 className="animate-spin" />

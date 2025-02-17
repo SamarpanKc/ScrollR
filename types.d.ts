@@ -1,10 +1,11 @@
-import { Connection } from "mongoose"
+/* eslint-disable no-var */
+import { Connection } from "mongoose";
 
-declare global{
-    var mongoose:{
-        conn: Connection | null
-        promise: Promise | null
-    }
+declare global {
+  var mongoose: {
+    conn: Connection | null;
+    promise: Promise<Connection> | null;
+  };
 }
 
-export{};
+export {};
